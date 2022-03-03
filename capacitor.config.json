@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "pawn-simulator",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
