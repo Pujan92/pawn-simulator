@@ -1,20 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Pawn Simulator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <form #form="ngForm" (ngSubmit)="executeCommand(userCommand.value); form.reset()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-input placeholder="Enter Command(Ex. PLACE 0,0,NORTH,WHITE)" name="userCommand" 
+            [(ngModel)]="command" #userCommand="ngModel" style="border: 1px solid lightgray;"></ion-input>      
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" color="primary">Execute</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  
+  <ion-grid class="board-grid">
+    <ion-row class="ion-no-padding" *ngFor="let row of chessBoard; let i = index">
+      <ion-col class="ion-no-padding" *ngFor="let square of row; let j = index">
+        <div class="square" [ngClass]="(i+j) % 2 === 0 ? 'square--white' : 'square--black'">
+          <!-- {{ j }}, {{ i }} -->
+          <ng-container *ngIf="pawn && j === pawn.x && i === pawn.y">
+            <img src="assets/{{ pawn.color | lowercase }}-pawn.png" alt="">
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
